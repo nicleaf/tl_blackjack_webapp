@@ -1,0 +1,25 @@
+<h2><%= session[:player_name] %></h2> 
+	<h4>Your money balance $ <%= session[:player_money] %></h4>
+	<h4>You bet $ <%= session[:player_bet] %></h4>
+		<br/>
+	
+<h4>Dealer's cards</h4> 
+	<p>
+		<% session[:dealer_cards].each do |card| %>
+			<%= card.to_s%>
+		<% end %>
+		<p>Total : <%= session[:dealer_total] %></p>
+	</p>
+
+	<br/>
+
+<h4><%= session[:player_name] %>'s cards</h4> 
+	<p>
+		<% session[:player_cards].each do |card| %>
+			<%= card.to_s%>
+		<% end %>
+		<p>Total : <%= session[:player_total] %></p>
+	</p>
+
+
+<!-- add button for hit & stay-->

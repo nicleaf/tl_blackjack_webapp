@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BlackJack Game!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/application.css">
+  </head>
+  <body id="body-background1">
+
+<!--    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+            <ul class="nav">
+              <li><a href="/">Nav Item</a></li>
+            </ul>
+        </div>
+      </div>
+    </div>
+-->
+
+  <div id="wrap">
+  <div class="container">
+    <%if @error %>
+      <div class="alert alert-error"><%=@error%></div>
+    <% end %>
+      <%= yield %>
+  </div>
+
+  <div id="push"></div>
+  </div>
+
+  <div id="footer">
+    <div class="container">
+      <p class="muted credit">Tealeaf - BlackJack - Nicholas - 13.09.2015 - Visit <a href="https://www.gotealeaf.com/">Tealeaf</a> and <a href="http://community.gotealeaf.com/">Tealeaf Community</a>.</p>
+    </div>
+  </div>
+
+
+  </body>
+</html>

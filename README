@@ -1,0 +1,20 @@
+1. Make sure the 'sinatra' gem is installed.
+2. From the command line, you can start the server by 'ruby main.rb'
+3. If you have the 'shotgun' gem installed, you can instead run 'shotgun main.rb'
+4. ctrl+c to stop the server
+
+## Blackjack game flow.
+1. '/' redirect to /welcome
+
+
+
+main.rb
+'/' - redirect to /welcome
+'/welcome' - welcome message, start/enter blackjack's game (redirect to '/set_name')
+'/set_name' - asking player name, button to submit (session 'name') redirect to '/set_money'
+'/set_money' - asking how much money player hv to play, button to submit (session 'money') redirect to '/set_bet'
+'/set_bet' - asking how much to bet. include validation - check negative, impose minimum bet of 1, maximum to bet is the latest total amount. submit button (session 'bet_amount') redirect to '/game'
+'/game' - draw 2 cards each (can refer to procedural BJ version or OO BJ version). button: hit/stay. game play reside in this url. Show play again & end button once blackjack/busted/winner. play again redirect to '/set_bet'. end will display latest total and button to play again - redirect to '/result'
+'/result' - show latest total amount, total game played, total win, total lose, total tie, % of win, % of lose, , % tie, win by blackjack, win by dealer busted, win by comparing total, largest bet, smallest bet, continue streak win, continue streak lose, lasgest win, smallest win.  button play again - redirect to '/welcome'
+
+
