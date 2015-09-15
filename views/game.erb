@@ -1,28 +1,36 @@
 <h2><%= session[:player_name] %></h2> 
 	<h4>Your money balance $ <%= session[:player_money] %></h4>
 	<h4>You bet $ <%= session[:player_bet] %></h4>
-		<br/>
-	
-<h4>Dealer's cards</h4> 
-	<p>
-		<% session[:dealer_cards].each do |card| %>
-			<%= card.to_s%>
-		<% end %>
-		<p>Total : <%= session[:dealer_total] %></p>
-	</p>
+<hr>
 
-	<br/>
+<h4>Dealer's cards</h4> 
+	<div class="row">
+		<div class="span1 card card-<%= session[:dealer_cards][0][0]+session[:dealer_cards][0][1] %>"></div>
+		<div class="span1 card %>"></div>
+	</div>
 
 <h4><%= session[:player_name] %>'s cards</h4> 
-	<p>
+	<div class="row">
 		<% session[:player_cards].each do |card| %>
-			<%= card.to_s%>
+			<div class="span1 card card-<%= card[0]+card[1] %>"></div>
 		<% end %>
-		<p>Total : <%= session[:player_total] %></p>
-	</p>
+	</div>
+	<p>Total : <%= session[:player_total] %></p>
 
-<button type="submit" class="btn btn-primary">Hit</button>
+<hr>
 
-<button type="submit" class="btn btn-warning">Stay</button>
+<h4> <%= session[:player_name] %>, with your total as <%= session[:player_total]%>.</h4>
+	<p>What is your next step?</p>
+	    <div class="row">
+    		<div class="span1">
+    			<form action="/game/hit" method="post" class="form-inline">
+     				 <button type="submit" class="btn btn-primary custom" name="player_hit">Hit</button>
+    			</form>
+    		</div>
 
-<!-- add button for hit & stay-->
+	    	<div class="span1">
+				<form action="/game/stay" method="post" class="form-inline">
+      				<button type="submit" class="btn btn-warning custom" name="player_stay">Stay</button>
+    			</form>
+   		 	</div>
+    	</div>

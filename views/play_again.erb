@@ -1,0 +1,31 @@
+<h2><%= session[:player_name] %></h2> 
+	<h4>Your money balance $ <%= session[:player_money] %></h4>
+	<h4>You bet $ <%= session[:player_bet] %></h4>
+	<hr>
+<h4>Dealer's cards</h4> 
+	<div class="row">
+		<% session[:dealer_cards].each do |card| %>
+			<div class="span1 card card-<%= card[0]+card[1] %>"></div>
+		<% end %>
+	</div>
+	<p>Total : <%= session[:dealer_total] %></p>
+
+
+<h4><%= session[:player_name] %>'s cards</h4> 
+	<div class="row">
+		<% session[:player_cards].each do |card| %>
+			<div class="span1 card card-<%= card[0]+card[1] %>"></div>
+		<% end %>
+	</div>
+	<p>Total : <%= session[:player_total] %></p>
+
+<hr>
+
+<h4> <%= session[:player_name] %>, with your total as <%= session[:player_total]%>.</h4>
+	<p>What is your next step?</p>
+		<% if session[:player_money] == 0 %>
+			<a href="/result" class="btn btn-warning" type="button">Exit!</a>
+		<% else %>
+			 <a href="/set_bet" class="btn btn-primary" type="button">Play again!</a> 
+			 <a href="/result" class="btn btn-warning" type="button">No, enough for today!</a> 
+		<% end %>

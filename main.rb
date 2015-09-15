@@ -8,8 +8,9 @@ use Rack::Session::Cookie, :key => 'rack.session',
 
 helpers do
   def new_deck
-    card_number = ['A','2','3','4','5','6','7','8','9','10','J','Q','K']
-    card_suit = ["\u2660","\u2665","\u2666","\u2663"]
+    card_number = ['a','2','3','4','5','6','7','8','9','10','j','q','k']
+    card_suit = ["d","c","s","h"]
+#    card_suit = ["\u2660","\u2665","\u2666","\u2663"]
     card_number.product(card_suit)
   end
 
@@ -26,17 +27,16 @@ helpers do
   session[:player_total] = 0
   session[:dealer_total] = 0
   session[:decks] = new_deck.shuffle
-
   end
 
   def calculate_total(cards_in_hand)
     total = 0
     ace_count = 0
     cards_in_hand.each do |card|
-      if card[0] == 'A'
+      if card[0] == 'a'
         total +=11
         ace_count +=1
-      elsif card[0] == 'J' || card[0] == 'Q' ||card[0] == 'K'
+      elsif card[0] == 'j' || card[0] == 'q' ||card[0] == 'k'
         total +=10
       else
         total +=card[0].to_i
@@ -44,6 +44,24 @@ helpers do
     end
     ace_count.times { total -=10 if total > 21 }
     return total
+  end
+
+  def hit_card(who,cards)
+    who << cards.pop
+  end
+
+  def burst?(total)
+    total > 21
+  end
+
+  def is_blackjack?(cards)
+    if ((cards.sort[0][0] == '10') && (cards.sort[1][0] == 'a') || 
+      ((cards.sort[0][0] == 'a') && ((cards.sort[1][0] == 'j') || 
+        (cards.sort[1][0] == 'q')|| (cards.sort[1][0] == 'k'))))
+      true
+    else
+      false
+    end
   end
 
 end
@@ -62,7 +80,7 @@ end
 
 post '/set_name' do
   if params[:player_name].empty?
-    @error = "Name is required"
+    @error = "Name is required!"
     halt erb(:set_name, :layout => :layout2)
   end
   session[:player_name] = params[:player_name]
@@ -84,7 +102,7 @@ post '/set_money' do
     @error = "No negative value."
     halt erb(:set_money, :layout => :layout2)
   end
-  session[:player_money] = params[:player_money]
+  session[:player_money] = params[:player_money].to_i
   redirect '/set_bet'
 end
 
@@ -99,8 +117,11 @@ post '/set_bet' do
   elsif params[:player_bet].to_i < 0
     @error = "No negative bet. Put some positive bet!"
     halt erb(:set_bet, :layout => :layout2)
+  elsif params[:player_bet].to_i > session[:player_money].to_i
+    @error = "Looks like you trying to bet more than what you have! Maximum bet is #{session[:player_money]}"
+    halt erb(:set_bet, :layout => :layout2)
   end
-  session[:player_bet] = params[:player_bet]
+  session[:player_bet] = params[:player_bet].to_i
   redirect '/game'
 end
 
@@ -109,12 +130,69 @@ get '/game' do
   first_draw(session[:player_cards], session[:dealer_cards], session[:decks])
   session[:player_total] = calculate_total(session[:player_cards])
   session[:dealer_total] = calculate_total(session[:dealer_cards])
+#  session[:player_cards] = [["A","G"],["K","G"]]
+#  session[:dealer_cards] = [["A","G"],["K","G"]]
+  if is_blackjack?(session[:player_cards]) && is_blackjack?(session[:dealer_cards])
+    @tie = "Both BlackJack! It's a tie!"
+    halt erb(:play_again)
+  elsif is_blackjack?(session[:player_cards])
+    @success = "#{session[:player_name]}, BlackJack! You win!"
+    session[:player_money] = session[:player_money] + session[:player_bet]
+    halt erb(:play_again)
+#  elsif is_blackjack?(session[:dealer_cards])
+#    @error = "Dealer BlackJack! You lost!"
+#    halt erb(:play_again)
+  end  
   erb :game
+end
+
+post '/game/hit' do
+  hit_card(session[:player_cards],session[:decks])
+  session[:player_total] = calculate_total(session[:player_cards])
+  session[:dealer_total] = calculate_total(session[:dealer_cards])
+  if burst?(session[:player_total])
+    @error = "#{session[:player_name]}, you busted! Too bad!"
+    session[:player_money] = session[:player_money] - session[:player_bet]
+    halt erb(:play_again)
+  end
+  erb :game
+end
+
+post '/game/stay' do
+  if is_blackjack?(session[:dealer_cards])
+    @error = "Dealer BlackJack! You lost!"
+    session[:player_money] = session[:player_money] - session[:player_bet]
+    halt erb(:play_again)
+  elsif session[:dealer_total] < 17
+    begin
+      hit_card(session[:dealer_cards],session[:decks])
+      session[:dealer_total] = calculate_total(session[:dealer_cards])
+    end until session[:dealer_total] >= 17 || burst?(session[:dealer_total])
+  end
+  
+  if burst?(session[:dealer_total])
+    @success = "#{session[:player_name]}, you win! As dealer busted!!!"
+    session[:player_money] = session[:player_money] + session[:player_bet]
+  elsif (session[:player_total]) > (session[:dealer_total])
+    @success = "#{session[:player_name]}, you win!"
+    session[:player_money] = session[:player_money] + session[:player_bet]
+  elsif (session[:player_total]) == (session[:dealer_total])
+    @info = "It's tie! Better than losing, right!"
+  else
+    @error = "Dealer win! Better luck next time!"
+    session[:player_money] = session[:player_money] - session[:player_bet]
+  end
+  erb(:play_again)
+  
+# erb :game_dealer
 end
 
 get '/result' do
   erb :result
 end
 
+get '/play_again' do
+  erb :play_again, :layout => :layout2
+end
 
 

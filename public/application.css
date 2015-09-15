@@ -34,13 +34,13 @@ p {
   height: auto !important;
   height: 100%;
   /* Negative indent footer by it's height */
-  margin: 0 auto -60px;
+  margin: 0 auto -40px;
 }
 
 /* Set the fixed height of the footer here */
 #push,
 #footer {
-  height: 60px;
+  height: 40px;
 }
 #footer {
   background-color: #f5f5f5;
@@ -65,5 +65,75 @@ p {
   max-width: 1000px;
 }
 .container .credit {
-  margin: 20px 0;
+  margin: 10px 0;
 }
+
+.custom {
+    width: 50px !important;
+}
+
+.card{
+  background:url('images/others/cards.png') no-repeat top left;
+  width:104px;
+  height: 151px;
+  display: block;
+  text-indent: -999px;
+  overflow: hidden;
+  box-shadow: 3px -5px 30px 3px rgba(0,0,0,0.6);
+}
+
+.card-ad {background-position: 0 -151px;}
+.card-kd {background-position: -104px -151px;}
+.card-qd {background-position: -208px -151px;}
+.card-jd {background-position: -312px -151px;}
+.card-10d{background-position: -416px -151px;}
+.card-9d {background-position: -520px -151px;}
+.card-8d {background-position: -624px -151px;}
+.card-7d {background-position: -728px -151px;}
+.card-6d {background-position: -832px -151px;}
+.card-5d {background-position: -936px -151px;}
+.card-4d {background-position: -1040px -151px;}
+.card-3d {background-position: -1144px -151px;}
+.card-2d {background-position: -1248px -151px;}
+
+.card-ac {background-position: 0 -302px;}
+.card-kc {background-position: -104px -302px;}
+.card-qc {background-position: -208px -302px;}
+.card-jc {background-position: -312px -302px;}
+.card-10c{background-position: -416px -302px;}
+.card-9c {background-position: -520px -302px;}
+.card-8c {background-position: -624px -302px;}
+.card-7c {background-position: -728px -302px;}
+.card-6c {background-position: -832px -302px;}
+.card-5c {background-position: -936px -302px;}
+.card-4c {background-position: -1040px -302px;}
+.card-3c {background-position: -1144px -302px;}
+.card-2c {background-position: -1248px -302px;}
+
+.card-ah {background-position: 0 -453px;}
+.card-kh {background-position: -104px -453px;}
+.card-qh {background-position: -208px -453px;}
+.card-jh {background-position: -312px -453px;}
+.card-10h{background-position: -416px -453px;}
+.card-9h {background-position: -520px -453px;}
+.card-8h {background-position: -624px -453px;}
+.card-7h {background-position: -728px -453px;}
+.card-6h {background-position: -832px -453px;}
+.card-5h {background-position: -936px -453px;}
+.card-4h {background-position: -1040px -453px;}
+.card-3h {background-position: -1144px -453px;}
+.card-2h {background-position: -1248px -453px;}
+
+.card-as {background-position: 0 -604px;}
+.card-ks {background-position: -104px -604px;}
+.card-qs {background-position: -208px -604px;}
+.card-js {background-position: -312px -604px;}
+.card-10s{background-position: -416px -604px;}
+.card-9s {background-position: -520px -604px;}
+.card-8s {background-position: -624px -604px;}
+.card-7s {background-position: -728px -604px;}
+.card-6s {background-position: -832px -604px;}
+.card-5s {background-position: -936px -604px;}
+.card-4s {background-position: -1040px -604px;}
+.card-3s {background-position: -1144px -604px;}
+.card-2s {background-position: -1248px -604px;}

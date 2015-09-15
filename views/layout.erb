@@ -22,8 +22,13 @@
 
   <div id="wrap">
   <div class="container">
+    <br/>
     <%if @error %>
       <div class="alert alert-error"><%=@error%></div>
+    <%elsif @success %>
+      <div class="alert alert-success"><%=@success%></div>
+    <%elsif @tie %>
+      <div class="alert alert-info"><%=@tie%></div>
     <% end %>
       <%= yield %>
   </div>
