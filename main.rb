@@ -177,7 +177,7 @@ post '/game/stay' do
     @success = "#{session[:player_name]}, you win!"
     session[:player_money] = session[:player_money] + session[:player_bet]
   elsif (session[:player_total]) == (session[:dealer_total])
-    @info = "It's tie! Better than losing, right!"
+    @tie = "It's tie! Better than losing, right!"
   else
     @error = "Dealer win! Better luck next time!"
     session[:player_money] = session[:player_money] - session[:player_bet]
