@@ -56,13 +56,7 @@ helpers do
   end
 
   def blackjack?(cards)
-    if ((cards.sort[0][0] == '10') && (cards.sort[1][0] == 'a') || 
-        ((cards.sort[0][0] == 'a') && ((cards.sort[1][0] == 'j') || 
-        (cards.sort[1][0] == 'q')|| (cards.sort[1][0] == 'k'))))
-      true
-    else
-      false
-    end
+    calculate_total(cards) == 21 && cards.size == 2
   end
 
 end
