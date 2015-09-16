@@ -36,7 +36,7 @@ helpers do
       if card[0] == 'a'
         total +=11
         ace_count +=1
-      elsif card[0] == 'j' || card[0] == 'q' ||card[0] == 'k'
+      elsif %w(j q k).include? card[0]
         total +=10
       else
         total +=card[0].to_i
