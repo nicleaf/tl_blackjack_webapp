@@ -22,11 +22,11 @@ helpers do
   end
 
   def reset
-  session[:player_cards] =[]
-  session[:dealer_cards] =[]
-  session[:player_total] = 0
-  session[:dealer_total] = 0
-  session[:decks] = new_deck.shuffle
+    session[:player_cards] =[]
+    session[:dealer_cards] =[]
+    session[:player_total] = 0
+    session[:dealer_total] = 0
+    session[:decks] = new_deck.shuffle
   end
 
   def calculate_total(cards_in_hand)
@@ -54,9 +54,9 @@ helpers do
     total > 21
   end
 
-  def is_blackjack?(cards)
+  def blackjack?(cards)
     if ((cards.sort[0][0] == '10') && (cards.sort[1][0] == 'a') || 
-      ((cards.sort[0][0] == 'a') && ((cards.sort[1][0] == 'j') || 
+        ((cards.sort[0][0] == 'a') && ((cards.sort[1][0] == 'j') || 
         (cards.sort[1][0] == 'q')|| (cards.sort[1][0] == 'k'))))
       true
     else
@@ -132,14 +132,14 @@ get '/game' do
   session[:dealer_total] = calculate_total(session[:dealer_cards])
 #  session[:player_cards] = [["A","G"],["K","G"]]
 #  session[:dealer_cards] = [["A","G"],["K","G"]]
-  if is_blackjack?(session[:player_cards]) && is_blackjack?(session[:dealer_cards])
+  if blackjack?(session[:player_cards]) && blackjack?(session[:dealer_cards])
     @tie = "Both BlackJack! It's a tie!"
     halt erb(:play_again)
-  elsif is_blackjack?(session[:player_cards])
+  elsif blackjack?(session[:player_cards])
     @success = "#{session[:player_name]}, BlackJack! You win!"
     session[:player_money] = session[:player_money] + session[:player_bet]
     halt erb(:play_again)
-#  elsif is_blackjack?(session[:dealer_cards])
+#  elsif blackjack?(session[:dealer_cards])
 #    @error = "Dealer BlackJack! You lost!"
 #    halt erb(:play_again)
   end  
@@ -159,7 +159,7 @@ post '/game/hit' do
 end
 
 post '/game/stay' do
-  if is_blackjack?(session[:dealer_cards])
+  if blackjack?(session[:dealer_cards])
     @error = "Dealer BlackJack! You lost!"
     session[:player_money] = session[:player_money] - session[:player_bet]
     halt erb(:play_again)

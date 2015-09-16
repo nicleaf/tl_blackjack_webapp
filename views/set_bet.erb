@@ -1,7 +1,6 @@
 <h2><%= session[:player_name] %></h2> 
 <h3>Total $ <%= session[:player_money] %></h3>
-
-	<form action="/set_bet" method="post">
-      <input type="text" class="input-medium search-query" placeholder="Enter your bet" name="player_bet">
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+  <form action="/set_bet" method="post">
+    <input type="text" class="input-medium search-query" placeholder="Enter your bet" name="player_bet">
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>

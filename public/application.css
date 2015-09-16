@@ -5,19 +5,19 @@ body {
 }
 
 #body-background1 {
-    background-image: url("./images/others/bj_table.jpg");
-    background-color: #000F00;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center; 
+  background-image: url("./images/others/bj_table.jpg");
+  background-color: #000F00;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center; 
 }
 
 #body-background2 {
-    background-image: url("./images/others/bj_background.jpg");
-    background-color: #000000;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center; 
+  background-image: url("./images/others/bj_background.jpg");
+  background-color: #000000;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center; 
 }
 
 h1,
@@ -49,10 +49,10 @@ p {
 /* Lastly, apply responsive CSS fixes as necessary */
 @media (max-width: 767px) {
   #footer {
-    margin-left: -20px;
-    margin-right: -20px;
-    padding-left: 20px;
-    padding-right: 20px;
+  margin-left: -20px;
+  margin-right: -20px;
+  padding-left: 20px;
+  padding-right: 20px;
   }
 }
 
@@ -69,7 +69,7 @@ p {
 }
 
 .custom {
-    width: 50px !important;
+  width: 50px !important;
 }
 
 .card{

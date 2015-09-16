@@ -1,7 +1,6 @@
 <h2>Good day! <%= session[:player_name] %></h2> 
 <h3>Now tell us how much money you have?</h3>
-
-	<form action="/set_money" method="post">
-      <input type="text" class="input-medium search-query" placeholder="Enter your money" name="player_money">
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+  <form action="/set_money" method="post">
+    <input type="text" class="input-medium search-query" placeholder="Enter your money" name="player_money">
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
