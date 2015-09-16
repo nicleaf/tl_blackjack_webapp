@@ -26,6 +26,7 @@ helpers do
     session[:dealer_cards] =[]
     session[:player_total] = 0
     session[:dealer_total] = 0
+    session[:count_game] +=1
     session[:decks] = new_deck.shuffle
   end
 
@@ -84,6 +85,10 @@ post '/set_name' do
     halt erb(:set_name, :layout => :layout2)
   end
   session[:player_name] = params[:player_name]
+  session[:count_game] = 0
+  session[:game_win] = 0
+  session[:game_lost] = 0
+  session[:game_tie] = 0
   redirect '/set_money'
 end
 
@@ -134,10 +139,12 @@ get '/game' do
 #  session[:dealer_cards] = [["A","G"],["K","G"]]
   if blackjack?(session[:player_cards]) && blackjack?(session[:dealer_cards])
     @tie = "Both BlackJack! It's a tie!"
+    session[:game_tie] +=1
     halt erb(:play_again)
   elsif blackjack?(session[:player_cards])
     @success = "#{session[:player_name]}, BlackJack! You win!"
     session[:player_money] = session[:player_money] + session[:player_bet]
+    session[:game_win] +=1
     halt erb(:play_again)
 #  elsif blackjack?(session[:dealer_cards])
 #    @error = "Dealer BlackJack! You lost!"
@@ -153,6 +160,7 @@ post '/game/hit' do
   if burst?(session[:player_total])
     @error = "#{session[:player_name]}, you busted! Too bad!"
     session[:player_money] = session[:player_money] - session[:player_bet]
+    session[:game_lost] +=1
     halt erb(:play_again)
   end
   erb :game
@@ -162,6 +170,7 @@ post '/game/stay' do
   if blackjack?(session[:dealer_cards])
     @error = "Dealer BlackJack! You lost!"
     session[:player_money] = session[:player_money] - session[:player_bet]
+    session[:game_lost] +=1
     halt erb(:play_again)
   elsif session[:dealer_total] < 17
     begin
@@ -173,14 +182,18 @@ post '/game/stay' do
   if burst?(session[:dealer_total])
     @success = "#{session[:player_name]}, you win! As dealer busted!!!"
     session[:player_money] = session[:player_money] + session[:player_bet]
+    session[:game_win] +=1
   elsif (session[:player_total]) > (session[:dealer_total])
     @success = "#{session[:player_name]}, you win!"
     session[:player_money] = session[:player_money] + session[:player_bet]
+    session[:game_win] +=1
   elsif (session[:player_total]) == (session[:dealer_total])
     @tie = "It's tie! Better than losing, right!"
+    session[:game_tie] +=1
   else
     @error = "Dealer win! Better luck next time!"
     session[:player_money] = session[:player_money] - session[:player_bet]
+    session[:game_lost] +=1
   end
   erb(:play_again)
   

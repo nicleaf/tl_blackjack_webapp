@@ -2,5 +2,34 @@
 <br/>
 <p>Will do this when have time! </p>
 <p>A page that show latest total amount, total game played, total win, total lose, total tie, % of win, % of lose, , % tie, win by blackjack, win by dealer busted, win by comparing total, largest bet, smallest bet, continue streak win, continue streak lose, lasgest win, smallest win.  button play again</p>
+<br/>
 <hr>
+<br/>
+  <table class="table table-condensed table-bordered">
+    <thead>
+      <tr>
+        <th>Player name</th>
+        <th>Total game</th>
+        <th>Win</th>
+        <th>% Win</th>
+        <th>Tie</th>
+        <th>% Tie</th>
+        <th>Lost</th>
+        <th>% Lost</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= session[:player_name] %></td>
+        <td><%= session[:count_game] %></td>
+        <td><%= session[:game_win] %></td>
+        <td><%= (session[:game_win]/session[:count_game].to_f * 100).round(2) %></td>
+        <td><%= session[:game_tie] %></td>
+        <td><%= (session[:game_tie]/session[:count_game].to_f * 100).round(2) %></td>
+        <td><%= session[:game_lost] %></td>
+        <td><%= (session[:game_lost]/session[:count_game].to_f * 100).round(2) %></td>
+      </tr>
+   </tbody>
+  </table>
+<br/>
 <a href="/set_money" class="btn btn-primary" type="button">Restart the game!</a>
