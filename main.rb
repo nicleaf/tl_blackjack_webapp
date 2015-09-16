@@ -153,6 +153,10 @@ get '/game' do
   erb :game
 end
 
+get '/game/hit' do
+  erb :game
+end
+
 post '/game/hit' do
   hit_card(session[:player_cards],session[:decks])
   session[:player_total] = calculate_total(session[:player_cards])
@@ -163,7 +167,7 @@ post '/game/hit' do
     session[:game_lost] +=1
     halt erb(:play_again)
   end
-  erb :game
+  redirect '/game/hit'
 end
 
 post '/game/stay' do
